@@ -68,6 +68,10 @@ class safe_print_sorted(unittest.TestCase):
                                           13: {"2": "a", "1": "0"}}))
         self.assertEqual((1, 3, [2, 3, 4]),
                          q2.print_sorted((3, [4, 3, 2], 1)))
+        self.assertEqual(({"a": [1, 2, 3], "b": (4, 6, 8), "c": {1: [2, 7, 8], 2: "hi"}}),
+                         q2.print_sorted({"c": {2: "hi", 1: [7, 8, 2], }, "a": [3, 1, 2], "b": (6, 8, 4)}))
+        self.assertEqual(("a", "c", "d", (0, 1, 8)),
+                         q2.print_sorted(("a", "d", (1, 8, 0), "c")))
 
 
 class safe_find_root(unittest.TestCase):

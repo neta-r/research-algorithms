@@ -23,8 +23,12 @@ def sort(t):
     composite = []
     for var in t:
         # recursive call
-        if isinstance(var, list) or isinstance(var, set) or isinstance(var, tuple):
+        if isinstance(var, list):
             composite.append(sort(var))
+        elif isinstance(var, set):
+            composite.append(set(sort(var)))
+        elif isinstance(var, tuple):
+            composite.append(tuple(sort(var)))
         elif isinstance(var, dict):
             composite.append(sort_dict(var))
         else:
@@ -56,5 +60,5 @@ def print_sorted(x):
 if __name__ == '__main__':
     print_sorted({1: {5: 0, 4: 2}, 8: {1: (1, 7, 3), 0: [5, 0, -9]}, 2: (5, 7, 4, 1), 13: {"2": "a", "1": "0"}})
     print_sorted({"d": {7, 4, 3, -2}, "a": "hi", "b": [6, 5, 1]})
-    # doesn't work
     print_sorted((3, [4, 3, 2], 1))
+    print_sorted(("a", "d", (1, 8, 0), "c"))
