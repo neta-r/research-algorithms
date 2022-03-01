@@ -1,6 +1,8 @@
 import q1
 import q2
+import q3
 import unittest
+from sympy import *
 
 
 def f1(name: str, age: int):
@@ -66,3 +68,27 @@ class safe_print_sorted(unittest.TestCase):
                                           13: {"2": "a", "1": "0"}}))
         self.assertEqual((1, 3, [2, 3, 4]),
                          q2.print_sorted((3, [4, 3, 2], 1)))
+
+
+class safe_find_root(unittest.TestCase):
+    def test(self):
+        # round function rounds the solution so it will be possible to be compared to
+        x = symbols('x')
+        f = x ** 2 - 4
+        self.assertAlmostEqual(2.0, round(q3.find_root(f, 1, 3)))
+
+        f = x ** 3 - 27
+        self.assertAlmostEqual(3.0, round(q3.find_root(f, 2, 5)))
+
+        f = x ** 5
+        self.assertAlmostEqual(0, round(q3.find_root(f, -2, 5)))
+
+        # this function has 2 int solution 2 , -2
+        # I changed the range so the function will catch each solution
+        f = x ** 8 - 256
+        self.assertAlmostEqual(-2, round(q3.find_root(f, -10, 0)))
+        self.assertAlmostEqual(2, round(q3.find_root(f, 0, 5)))
+
+        x = symbols('x', real=True)
+        f = ln(x)
+        self.assertAlmostEqual(1, round(q3.find_root(f, -10, 10)))
