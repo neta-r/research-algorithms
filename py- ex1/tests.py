@@ -13,6 +13,10 @@ def f2(x: int, y: float, z):
     return x + y + z
 
 
+def f3(x, y: int, z, w: "str"):
+    return "x is: " + str(x) + " , y is: " + str(y) + " , z is: " + str(z) + " , w is: " + w
+
+
 class safe_call_test(unittest.TestCase):
     def test_f1(self):
         self.assertEqual("my name is Neta and my age is 23", q1.safe_call(f1, "Neta", 23))
@@ -31,7 +35,7 @@ class safe_call_test(unittest.TestCase):
             q1.safe_call(f1, 25, 18)
         with self.assertRaises(TypeError):
             q1.safe_call(f1, 25, 18.0)
-        # Too few arguments (will throw IndexError - args[counter] doesn't exists)
+        # Too few arguments
         with self.assertRaises(Exception):
             q1.safe_call(f1, 'Amit')
         with self.assertRaises(Exception):
@@ -52,9 +56,27 @@ class safe_call_test(unittest.TestCase):
             q1.safe_call(f2, 1.0, 0.0, 0)
         with self.assertRaises(TypeError):
             q1.safe_call(f2, 25, 1.0, "0")
-        # Too few arguments (will throw IndexError - args[counter] doesn't exists)
+        # Too few arguments
         with self.assertRaises(Exception):
             q1.safe_call(f2, 25)
+
+    # checks function with argument without type
+    def test_f3(self):
+        self.assertEqual("x is: 1 , y is: 2 , z is: 3.0 , w is: 4", q1.safe_call(f3, 1, 2, 3.0, "4"))
+        self.assertEqual("x is: hi , y is: 2 , z is: 4 , w is: there", q1.safe_call(f3, "hi", 2,  4, "there"))
+        # Incorrect types
+        with self.assertRaises(TypeError):
+            q1.safe_call(f3, 1, 2.0, 3, "4")
+        with self.assertRaises(TypeError):
+            q1.safe_call(f3, 1, 2, 3, 4)
+        with self.assertRaises(TypeError):
+            q1.safe_call(f3, 1.0, 0.0, 0, 4)
+        # Too few arguments
+        with self.assertRaises(Exception):
+            q1.safe_call(f3, 25)
+        # Too many arguments
+        with self.assertRaises(Exception):
+            q1.safe_call(f3, 25, 25, 25, "25", 25)
 
 
 class safe_print_sorted(unittest.TestCase):
