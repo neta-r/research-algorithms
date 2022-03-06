@@ -29,5 +29,3 @@ class lastcall_test(unittest.TestCase):
     def test_f(self):
         self.assertEqual(f(3), 27)
         f(3)
-        sys.stdout = sys.__stdout__
-        print ('Captured', capturedOutput.getvalue())
