@@ -7,21 +7,28 @@ f_results = {}
 def lastcall(func):
     def inner(*args, **kwargs):
         name = func.__name__
-        # no key as func
-        if name not in f_results.keys():
+
+        if name not in f_results.keys():  # no key as func
             return_val = func(*args, **kwargs)
-            f_results[name] = {args: return_val}
+            key = args
+            # only immutable object can be keys
+            # in order to check if the return_val is immutable I'll check if the object has an iterable attribute
+            if hasattr(args, '__iter__'):  # object is not immutable and can't be used as a key
+                key = str(args)
+            f_results[name] = {key: return_val} # inserting new function name as a key along with current result
+
             return return_val
 
-        # func is a key in f_results
-        else:
-            # args is a key in the func dict
-            if args in f_results[name]:
-                print(f"I already told you that the answer is {f_results[name][args]}!")
-            # args is not a key in the func dict
-            else:
+        else:  # func is a key in f_results
+            key = args
+            if hasattr(args, '__iter__'):
+                key = str(args)
+            if key in f_results[name]:  # args is a key in the func dict (result exists)
+                print(f"I already told you that the answer is: {f_results[name][key]}")
+
+            else:  # args is not a key in the func dict (result doesn't exist)
                 return_val = func(*args, **kwargs)
-                f_results[name] = {args: return_val}
+                f_results[name] = {key: return_val}  # inserting current tesult
                 return return_val
 
     return inner
