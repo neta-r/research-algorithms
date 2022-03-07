@@ -9,9 +9,7 @@ class List(list):
             for index in args[0][1:]:
                 current = current[index]
             return current
-        except IndexError:
-            raise IndexError
-        except Exception:  # regular list
+        except:  # regular list
             current = super().__getitem__(args[0])
             for index in args[1:]:
                 current = current[index]
@@ -23,12 +21,11 @@ class List(list):
             current = super().__getitem__(args[0][0])
             for index in args[0][1:-1]:
                 current = current[index]
-            current[args[0][-1]] = val # getting to one dimensional list and using regular [] operator :)
-        except IndexError:
-            raise IndexError
-        except Exception:  # regular list
-            current = self
-            current[args[0]] = val
+            current[args[0][-1]] = val  # getting to one dimensional list and using regular [] operator :)
+            return
+        except:  # regular list
+            super().__setitem__(args[0], val)
+            return
 
 
 if __name__ == '__main__':
