@@ -23,11 +23,21 @@ class List(list):
         return temp_dict
 
     def __init__(self, init_lst):
+        super().__init__()
         key = 0
         for var in init_lst:
             self.lst[key] = self.recursive_init(var)
             key = key + 1
-        super().__init__()
+
+    def __getitem__(self, *args):
+        var = self.lst
+        for index in args:
+            var = var[index]
+        # return in in the form of a list
+        if isinstance(var, dict):
+            return list(var.values())
+        return var
+
 
 
 if __name__ == '__main__':
@@ -36,4 +46,4 @@ if __name__ == '__main__':
         [[7, 8, 9, 99], [10, 11, 12, 122]],
         [[13, 14, 15, 155], [16, 17, 18, 188]],
     ])
-
+    print(lst[0, 1, 3])
