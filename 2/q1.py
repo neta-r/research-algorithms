@@ -16,7 +16,8 @@ def print_func(file, name, args, doc):
             file.write(' ')
         file.write('            </annotations>\n')
 
-    if args is not None:
+    # checking if dict is empty
+    if bool(args):
         file.write('            <arguments>\n')
         for arg_name in args:
             file.write('                <argument>\n')
@@ -68,4 +69,5 @@ def doc_to_html(file_name, output):
 
 
 if __name__ == '__main__':
-    doc_to_html('homeworkmodule.py', 'doc.html')
+    doc_to_html('homeworkmodule.py', 'm1_doc_actual.html')
+    doc_to_html('anothermodule.py', 'm2_doc_actual.html')
