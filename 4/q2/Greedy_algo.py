@@ -1,9 +1,9 @@
 from cities import city_with_name, graph_path, graph, city, city_without_name, graph_path_len
-import random
+from sys import maxsize
 
 
 def next_unvisited_min(g: graph, v: city):
-    min_dist = 99999
+    min_dist = maxsize
     nei = v
     for u in g.cities:
         if not u.is_visited:

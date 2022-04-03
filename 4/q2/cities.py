@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from sys import maxsize
 
 
 class city(ABC):
@@ -25,7 +26,7 @@ class city_with_name(city, ABC):
 
     def get_dist(self, other_city: city):
         if other_city.get_key() == self.name:
-            return 999999  # infinity
+            return maxsize  # infinity
         return self.other_cities[other_city.get_key()]
 
     def get_key(self):
@@ -49,7 +50,7 @@ class city_without_name(city, ABC):
 
     def get_dist(self, other_city: city):
         if other_city.get_key() == self.key:
-            return 999999  # infinity
+            return maxsize  # infinity
         return self.other_cities[other_city.get_key()]
 
     def get_key(self):  # for printing full path
