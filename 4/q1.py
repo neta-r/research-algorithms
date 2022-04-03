@@ -15,6 +15,8 @@ class bounded_subset:
         return self
 
     def __next__(self):
+        if len(self.lst) == 0:
+            raise StopIteration
         next_iter = True  # another iteration or found a solution in this one ?
         while next_iter:
             next_iter = False

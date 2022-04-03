@@ -37,3 +37,33 @@ class bounded_subset_test(unittest.TestCase):
             out = f.getvalue()
             # comparing stdout to expected result
             self.assertEqual(out, "")  # none of the numbers match
+
+    def test4(self):
+        # redirect stdout to this file
+        f = io.StringIO()
+        with redirect_stdout(f):
+            for s in bounded_subset([], 2):
+                print(s)
+            out = f.getvalue()
+            # comparing stdout to expected result
+            self.assertEqual(out, "")  # empty list
+
+    def test5(self):
+        # redirect stdout to this file
+        f = io.StringIO()
+        with redirect_stdout(f):
+            for s in bounded_subset([1, 2, 3], -1):
+                print(s)
+            out = f.getvalue()
+            # comparing stdout to expected result
+            self.assertEqual(out, "")
+
+    def test6(self):
+        # redirect stdout to this file
+        f = io.StringIO()
+        with redirect_stdout(f):
+            for s in bounded_subset([1, -2, 3], 1):
+                print(s)
+            out = f.getvalue()
+            # comparing stdout to expected result
+            self.assertEqual(out, "[-2]\n[-2, 3]\n[1]\n[1, -2]\n")
