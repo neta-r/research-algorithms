@@ -1,69 +1,25 @@
 import unittest
 from q1 import bounded_subset
 
-import io
-from contextlib import redirect_stdout
-
 
 class bounded_subset_test(unittest.TestCase):
     def test1(self):
-        # redirect stdout to this file
-        f = io.StringIO()
-        with redirect_stdout(f):
-            for s in bounded_subset([1, 2, 3], 4):
-                print(s)
-            out = f.getvalue()
-            # comparing stdout to expected result
-            self.assertEqual(out, "[3]\n[2]\n[1]\n[1, 3]\n[1, 2]\n")
+        self.assertEqual(list(bounded_subset([1, 2, 3], 4)), [[3], [2], [1], [1, 3], [1, 2]])
 
     def test2(self):
-        # redirect stdout to this file
-        f = io.StringIO()
-        with redirect_stdout(f):
-            for s in bounded_subset([32, 1, 99, 2, 5, 4, 7], 12):
-                print(s)
-            out = f.getvalue()
-            # comparing stdout to expected result
-            self.assertEqual(out, "[7]\n[4]\n[4, 7]\n[5]\n[5, 7]\n[5, 4]\n[2]\n[2, 7]\n[2, 4]\n[2, "
-                                  "5]\n[2, 5, 4]\n[1]\n[1, 7]\n[1, 4]\n[1, 4, 7]\n[1, 5]\n[1, 5, 4]\n[1, 2]\n[1, 2, "
-                                  "7]\n[1, 2, 4]\n[1, 2, 5]\n[1, 2, 5, 4]\n")
+        self.assertEqual(list(bounded_subset([32, 1, 99, 2, 5, 4, 7], 12)),
+                         [[7], [4], [4, 7], [5], [5, 7], [5, 4], [2], [2, 7],
+                          [2, 4], [2, 5], [2, 5, 4], [1], [1, 7], [1, 4], [1, 4, 7],
+                          [1, 5], [1, 5, 4], [1, 2], [1, 2, 7], [1, 2, 4], [1, 2, 5], [1, 2, 5, 4]])
 
     def test3(self):
-        # redirect stdout to this file
-        f = io.StringIO()
-        with redirect_stdout(f):
-            for s in bounded_subset([32, 5, 8, 7, 22], 2):
-                print(s)
-            out = f.getvalue()
-            # comparing stdout to expected result
-            self.assertEqual(out, "")  # none of the numbers match
+        self.assertEqual(list(bounded_subset([32, 5, 8, 7, 2], 1)), [])
 
     def test4(self):
-        # redirect stdout to this file
-        f = io.StringIO()
-        with redirect_stdout(f):
-            for s in bounded_subset([], 2):
-                print(s)
-            out = f.getvalue()
-            # comparing stdout to expected result
-            self.assertEqual(out, "")  # empty list
+        self.assertEqual(list(bounded_subset([], 2)), [])
 
     def test5(self):
-        # redirect stdout to this file
-        f = io.StringIO()
-        with redirect_stdout(f):
-            for s in bounded_subset([1, 2, 3], -1):
-                print(s)
-            out = f.getvalue()
-            # comparing stdout to expected result
-            self.assertEqual(out, "")
+        self.assertEqual(list(bounded_subset([1, 2, 3], -1)), [])
 
     def test6(self):
-        # redirect stdout to this file
-        f = io.StringIO()
-        with redirect_stdout(f):
-            for s in bounded_subset([1, -2, 3], 1):
-                print(s)
-            out = f.getvalue()
-            # comparing stdout to expected result
-            self.assertEqual(out, "[-2]\n[-2, 3]\n[1]\n[1, -2]\n")
+        self.assertEqual(list(bounded_subset([1, -2, 3], 1)), [[-2], [-2, 3], [1], [1, -2]])
