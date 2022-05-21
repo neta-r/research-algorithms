@@ -15,6 +15,8 @@ def strToDatatime2(str):
     return datetime(year, month, day, hour, min, sec)
 
 
+# returning the value of the content dictionary if not None and casting to the requested type
+# some values are access by content[title]['#text'] and some aren't the text parm represents it
 def val(title, content, type, text: False):
     try:
         try:
@@ -54,6 +56,7 @@ if __name__ == '__main__':
           'זמן התחלה, זמן סיום, קוד סוג משנה של הוועדה, תיאור סוג משנה של הוועדה, קוד ועדת האם, תיאור ועדת האם, '
           'האם הוועדה פעילה?, תאריך עדכון אחרון)')
     for elem in dict_data['feed']['entry']:
+        # extracting all of element's value
         CommitteeID = int(elem['id'][-2:-1])
         content = elem['content']['m:properties']
         Name = val('d:Name', content, str, False)
